@@ -1,35 +1,61 @@
 ﻿using System;
-
+using System.Security;
 using NPOI.SS.UserModel;
 using NPOI.HSSF.UserModel;
+using NPOI.OpenXmlFormats.Dml.Chart;
 
 namespace Analyze
 {
     struct Stats
     {
+
+        public Stats(int id, string date, float mileage, int timeInMovement,
+            int timeWorkOfEngine, int timeWorkOfEngineInMovement,
+            int timeWorkOfEngineInIdle, int timeWorkOfEngineInMin,
+            int timeWorkOfEngineInNorm, int timeWorkOfEngineInMax,
+            int timeOffEngine, int timeWorkOfEngineInWorkload,
+            float startVolume, float endVolume)
+        {
+            this.id = id;
+            this.date = date;
+            this.mileage = mileage;
+            this.timeInMovement = timeInMovement;
+            this.timeWorkOfEngine = timeWorkOfEngine;
+            this.timeWorkOfEngine = timeWorkOfEngine;
+            this.timeWorkOfEngineInMovement = timeWorkOfEngineInMovement;
+            this.timeWorkOfEngineInIdle = timeWorkOfEngineInIdle;
+            this.timeWorkOfEngineInMin = timeWorkOfEngineInMin;
+            this.timeWorkOfEngineInNorm = timeWorkOfEngineInNorm;
+            this.timeWorkOfEngineInMax = timeWorkOfEngineInMax;
+            this.timeOffEngine = timeOffEngine;
+            this.timeWorkOfEngineInWorkload = timeWorkOfEngineInWorkload;
+            this.startVolume = startVolume;
+            this.endVolume = startVolume;
+        }
+
         public int id;
 
         public string date;
 
-        public string mileage;
+        public float mileage;
 
-        public string timeInMovement;
+        public int timeInMovement;
 
-        public string timeWorkOfEngine;
+        public int timeWorkOfEngine;
 
-        public string timeWorkOfEngineInMovement;
+        public int timeWorkOfEngineInMovement;
 
-        public string timeWorkOfEngineInIdle;
+        public int timeWorkOfEngineInIdle;
 
-        public string timeWorkOfEngineInMin;
+        public int timeWorkOfEngineInMin;
 
-        public string timeWorkOfEngineInNorm;
+        public int timeWorkOfEngineInNorm;
 
-        public string timeWorkOfEngineInMax;
+        public int timeWorkOfEngineInMax;
 
-        public string timeOffEngine;
+        public int timeOffEngine;
 
-        public string timeWorkOfEngineInWorkload;
+        public int timeWorkOfEngineInWorkload;
 
         public float startVolume;
 
@@ -37,9 +63,19 @@ namespace Analyze
     }
     class Program
     {
+        public static int ConvertTime(string time)
+        {
+            int seconds = 0;
+            string[] times = time.Split(':');
+            seconds += ((Convert.ToInt32(times[0]) * 3600) + (Convert.ToInt32(times[1]) * 60) +
+                        Convert.ToInt32(times[2]));
+            return seconds;
+        }
         public static void Main(string[] args)
         {
             HSSFWorkbook xssfwb;
+
+            List<Stats> stats = new List<Stats>();
 
             using (FileStream file = new FileStream(@"C:\Users\hoder\Desktop\CASE_IN\Analyze\stats.xls", FileMode.Open, FileAccess.Read))
             {
@@ -53,12 +89,7 @@ namespace Analyze
                 var currentRow = sheet.GetRow(row);
                 if (currentRow != null) 
                 {
-                    for (int column = 0; column < 14; column++)
-                    {
-                        var stringCellValue = currentRow.GetCell(column);
 
-                        Console.Write(string.Format("Ячейка {0}-{1} значение:{2}", row, column, stringCellValue));
-                    }
                 }
                 Console.WriteLine("");
             }
