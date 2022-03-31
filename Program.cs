@@ -1,37 +1,11 @@
 ﻿using System;
-using System.Security;
 using NPOI.SS.UserModel;
 using NPOI.HSSF.UserModel;
-using NPOI.OpenXmlFormats.Dml.Chart;
 
 namespace Analyze
 {
     struct Stats
     {
-
-        public Stats(int id, string date, float mileage, int timeInMovement,
-            int timeWorkOfEngine, int timeWorkOfEngineInMovement,
-            int timeWorkOfEngineInIdle, int timeWorkOfEngineInMin,
-            int timeWorkOfEngineInNorm, int timeWorkOfEngineInMax,
-            int timeOffEngine, int timeWorkOfEngineInWorkload,
-            float startVolume, float endVolume)
-        {
-            this.id = id;
-            this.date = date;
-            this.mileage = mileage;
-            this.timeInMovement = timeInMovement;
-            this.timeWorkOfEngine = timeWorkOfEngine;
-            this.timeWorkOfEngine = timeWorkOfEngine;
-            this.timeWorkOfEngineInMovement = timeWorkOfEngineInMovement;
-            this.timeWorkOfEngineInIdle = timeWorkOfEngineInIdle;
-            this.timeWorkOfEngineInMin = timeWorkOfEngineInMin;
-            this.timeWorkOfEngineInNorm = timeWorkOfEngineInNorm;
-            this.timeWorkOfEngineInMax = timeWorkOfEngineInMax;
-            this.timeOffEngine = timeOffEngine;
-            this.timeWorkOfEngineInWorkload = timeWorkOfEngineInWorkload;
-            this.startVolume = startVolume;
-            this.endVolume = startVolume;
-        }
 
         public int id;
 
@@ -60,6 +34,31 @@ namespace Analyze
         public float startVolume;
 
         public float endVolume;
+
+        public Stats(int id, string date, float mileage, int timeInMovement,
+            int timeWorkOfEngine, int timeWorkOfEngineInMovement,
+            int timeWorkOfEngineInIdle, int timeWorkOfEngineInMin,
+            int timeWorkOfEngineInNorm, int timeWorkOfEngineInMax,
+            int timeOffEngine, int timeWorkOfEngineInWorkload,
+            float startVolume, float endVolume)
+        {
+            this.id = id;
+            this.date = date;
+            this.mileage = mileage;
+            this.timeInMovement = timeInMovement;
+            this.timeWorkOfEngine = timeWorkOfEngine;
+            this.timeWorkOfEngine = timeWorkOfEngine;
+            this.timeWorkOfEngineInMovement = timeWorkOfEngineInMovement;
+            this.timeWorkOfEngineInIdle = timeWorkOfEngineInIdle;
+            this.timeWorkOfEngineInMin = timeWorkOfEngineInMin;
+            this.timeWorkOfEngineInNorm = timeWorkOfEngineInNorm;
+            this.timeWorkOfEngineInMax = timeWorkOfEngineInMax;
+            this.timeOffEngine = timeOffEngine;
+            this.timeWorkOfEngineInWorkload = timeWorkOfEngineInWorkload;
+            this.startVolume = startVolume;
+            this.endVolume = startVolume;
+        }
+
     }
     class Program
     {
@@ -84,15 +83,35 @@ namespace Analyze
 
             ISheet sheet = xssfwb.GetSheetAt(0);
 
-            for (int row = 0; row <= sheet.LastRowNum; row++)
+            for (int row = 1; row <= 1; row++)
             {
                 var currentRow = sheet.GetRow(row);
                 if (currentRow != null) 
                 {
-
+                    for (int j = 0; j < 14; j++)
+                    {
+                        //(currentRow.GetCell(j)).SetCellType(cell);
+                    }
+                    stats.Add(
+                        new Stats(
+                            Convert.ToInt32(currentRow.GetCell(0).StringCellValue),
+                            currentRow.GetCell(1).StringCellValue,
+                            float.Parse(currentRow.GetCell(2).StringCellValue),
+                            ConvertTime(currentRow.GetCell(3).StringCellValue),
+                            ConvertTime(currentRow.GetCell(4).StringCellValue),
+                            ConvertTime(currentRow.GetCell(5).StringCellValue),
+                            ConvertTime(currentRow.GetCell(6).StringCellValue),
+                            ConvertTime(currentRow.GetCell(7).StringCellValue),
+                            ConvertTime(currentRow.GetCell(8).StringCellValue),
+                            ConvertTime(currentRow.GetCell(9).StringCellValue),
+                            ConvertTime(currentRow.GetCell(10).StringCellValue),
+                            ConvertTime(currentRow.GetCell(11).StringCellValue),
+                            float.Parse(currentRow.GetCell(12).StringCellValue),
+                            float.Parse(currentRow.GetCell(13).StringCellValue)
+                        ));
                 }
-                Console.WriteLine("");
             }
+            Console.WriteLine(stats[0].id);
         }
     }
 }
