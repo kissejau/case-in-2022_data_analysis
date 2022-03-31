@@ -4,74 +4,23 @@ using NPOI.HSSF.UserModel;
 
 namespace Analyze
 {
-    struct Stats
-    {
-
-        public int id;
-
-        public string date;
-
-        public float mileage;
-
-        public int timeInMovement;
-
-        public int timeWorkOfEngine;
-
-        public int timeWorkOfEngineInMovement;
-
-        public int timeWorkOfEngineInIdle;
-
-        public int timeWorkOfEngineInMin;
-
-        public int timeWorkOfEngineInNorm;
-
-        public int timeWorkOfEngineInMax;
-
-        public int timeOffEngine;
-
-        public int timeWorkOfEngineInWorkload;
-
-        public float startVolume;
-
-        public float endVolume;
-
-        public Stats(int id, string date, float mileage, int timeInMovement,
-            int timeWorkOfEngine, int timeWorkOfEngineInMovement,
-            int timeWorkOfEngineInIdle, int timeWorkOfEngineInMin,
-            int timeWorkOfEngineInNorm, int timeWorkOfEngineInMax,
-            int timeOffEngine, int timeWorkOfEngineInWorkload,
-            float startVolume, float endVolume)
-        {
-            this.id = id;
-            this.date = date;
-            this.mileage = mileage;
-            this.timeInMovement = timeInMovement;
-            this.timeWorkOfEngine = timeWorkOfEngine;
-            this.timeWorkOfEngine = timeWorkOfEngine;
-            this.timeWorkOfEngineInMovement = timeWorkOfEngineInMovement;
-            this.timeWorkOfEngineInIdle = timeWorkOfEngineInIdle;
-            this.timeWorkOfEngineInMin = timeWorkOfEngineInMin;
-            this.timeWorkOfEngineInNorm = timeWorkOfEngineInNorm;
-            this.timeWorkOfEngineInMax = timeWorkOfEngineInMax;
-            this.timeOffEngine = timeOffEngine;
-            this.timeWorkOfEngineInWorkload = timeWorkOfEngineInWorkload;
-            this.startVolume = startVolume;
-            this.endVolume = startVolume;
-        }
-
-    }
     class Program
     {
         public static int ConvertTime(string time)
         {
             int seconds = 0;
             string[] times = time.Split(':');
-            seconds += ((Convert.ToInt32(times[0]) * 3600) + (Convert.ToInt32(times[1]) * 60) +
-                        Convert.ToInt32(times[2]));
+            if (times.Length == 3)
+            {
+                seconds += ((Convert.ToInt32(times[0]) * 3600) + (Convert.ToInt32(times[1]) * 60) +
+                            Convert.ToInt32(times[2]));
+            }
+
             return seconds;
         }
         public static void Main(string[] args)
         {
+            
             HSSFWorkbook xssfwb;
 
             List<Stats> stats = new List<Stats>();
@@ -83,7 +32,7 @@ namespace Analyze
 
             ISheet sheet = xssfwb.GetSheetAt(0);
 
-            for (int row = 1; row <= 1; row++)
+            for (int row = 1; row <= sheet.LastRowNum; row++)
             {
                 var currentRow = sheet.GetRow(row);
                 if (currentRow != null) 
@@ -92,26 +41,55 @@ namespace Analyze
                     {
                         //(currentRow.GetCell(j)).SetCellType(cell);
                     }
-                    stats.Add(
-                        new Stats(
-                            Convert.ToInt32(currentRow.GetCell(0).StringCellValue),
-                            currentRow.GetCell(1).StringCellValue,
-                            float.Parse(currentRow.GetCell(2).StringCellValue),
-                            ConvertTime(currentRow.GetCell(3).StringCellValue),
-                            ConvertTime(currentRow.GetCell(4).StringCellValue),
-                            ConvertTime(currentRow.GetCell(5).StringCellValue),
-                            ConvertTime(currentRow.GetCell(6).StringCellValue),
-                            ConvertTime(currentRow.GetCell(7).StringCellValue),
-                            ConvertTime(currentRow.GetCell(8).StringCellValue),
-                            ConvertTime(currentRow.GetCell(9).StringCellValue),
-                            ConvertTime(currentRow.GetCell(10).StringCellValue),
-                            ConvertTime(currentRow.GetCell(11).StringCellValue),
-                            float.Parse(currentRow.GetCell(12).StringCellValue),
-                            float.Parse(currentRow.GetCell(13).StringCellValue)
-                        ));
+
+                    try
+                    {
+                        var i1 = Convert.ToInt32(currentRow.GetCell(0).NumericCellValue);
+                        //Console.WriteLine(i1);
+                        var i2 = currentRow.GetCell(1).StringCellValue;
+                        //Console.WriteLine(i2);
+                        var i3 = currentRow.GetCell(2).NumericCellValue;
+                        //Console.WriteLine(i3);
+                        var i4 = ConvertTime(currentRow.GetCell(3).StringCellValue);
+                        //Console.WriteLine(i4);
+                        var i5 = ConvertTime(currentRow.GetCell(4).StringCellValue);
+                        //Console.WriteLine(i5);
+                        var i6 = ConvertTime(currentRow.GetCell(5).StringCellValue);
+                        //Console.WriteLine(i6);
+                        var i7 = ConvertTime(currentRow.GetCell(6).StringCellValue);
+                        //Console.WriteLine(i7);
+                        var i8 = ConvertTime(currentRow.GetCell(7).StringCellValue);
+                        //Console.WriteLine(i8);
+                        var i9 = ConvertTime(currentRow.GetCell(8).StringCellValue);
+                        //Console.WriteLine(i9);
+                        var i10 = ConvertTime(currentRow.GetCell(9).StringCellValue);
+                        //Console.WriteLine(i10);
+                        var i11 = ConvertTime(currentRow.GetCell(10).StringCellValue);
+                        //Console.WriteLine(i11);
+                        var i12 = ConvertTime(currentRow.GetCell(11).StringCellValue);
+                        //Console.WriteLine(i12);
+                        var i13 = currentRow.GetCell(12).NumericCellValue;
+                        //Console.WriteLine(i13);
+                        var i14 = currentRow.GetCell(13).NumericCellValue;
+                        //Console.WriteLine(i14);
+                        stats.Add(
+                            new Stats(
+                                i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14
+                            )
+                        );
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(row);
+                        Console.WriteLine(e.Message);
+                        return;
+                    }
+
                 }
             }
-            Console.WriteLine(stats[0].id);
+            Console.WriteLine("End..");
+            Console.Write(stats[stats.Count-1].timeWorkOfEngineInMin);
+
         }
     }
 }
