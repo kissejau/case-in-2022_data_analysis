@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NPOI.SS.UserModel;
 
-namespace Analyze
+namespace Analyze.Sources
 {
     internal class Parser
     {

@@ -1,11 +1,11 @@
 .vs
 .vscode
-Analyze.sln
 
-stats.xls
+Analyze.sln
 
 [Dd]ebug/
 [Rr]elease/
 x64/
 [Bb]in/
 [Oo]bj/
+Solution/

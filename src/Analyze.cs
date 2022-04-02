@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Org.BouncyCastle.Crypto.Agreement.JPake;
-
-namespace Analyze.Solution
+﻿namespace Analyze.Sources
 {
     class Analyze
     {
-        public void IdleSearch(List<PersonalStats> ps)
+        public List<int> IdleSearch(List<PersonalStats> ps)
         {
             bool idleFlag;
+            List<int> idleCars = new List<int>();
 
             for (int i = 0; i < ps.Count; i++)
             {
@@ -28,9 +22,11 @@ namespace Analyze.Solution
 
                 if (!idleFlag)
                 {
-                    Console.WriteLine("Car with id #" + ps[i].id + " was idle the whole time.");
+                    idleCars.Add(ps[i].id);
                 }
             }
+
+            return idleCars;
         }
     }
 }
