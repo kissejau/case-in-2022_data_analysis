@@ -10,7 +10,8 @@ namespace Analyze
         public static void Main(string[] args)
         {
 
-            Parser parser = new Parser();
+            var parser = new Parser();
+            var analyze = new Solution.Analyze();
 
             HSSFWorkbook xssfwb;
             List<Stats> stats = new List<Stats>();
@@ -26,10 +27,10 @@ namespace Analyze
             parser.Parse(sheet, stats);
             parser.RelocateStats(stats, ps);
             
-            Console.WriteLine("End..");
+            Console.WriteLine("Кол-во техники: " + ps.Count);
+            Console.WriteLine("Кол-во статистики по второй единице техники: " + ps[1].pi.Count);
 
-            Console.WriteLine(ps[0].id + " " + ps[1].id + " " + ps[2].id);
-
+            analyze.IdleSearch(ps);
         }
     }
 }

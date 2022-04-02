@@ -9,7 +9,7 @@ namespace Analyze
 {
     internal class Parser
     {
-        public static int ConvertTime(string time)
+        private int ConvertTime(string time)
         {
             int seconds = 0;
             string[] times = time.Split(':');
