@@ -16,33 +16,33 @@ namespace Analyze.Sources
 
         public double mileage;
 
-        public int timeInMovement;
+        public double timeInMovement;
 
-        public int timeWorkOfEngine;
+        public double timeWorkOfEngine;
 
-        public int timeWorkOfEngineInMovement;
+        public double timeWorkOfEngineInMovement;
 
-        public int timeWorkOfEngineInIdle;
+        public double timeWorkOfEngineInIdle;
 
-        public int timeWorkOfEngineInMin;
+        public double timeWorkOfEngineInMin;
 
-        public int timeWorkOfEngineInNorm;
+        public double timeWorkOfEngineInNorm;
 
-        public int timeWorkOfEngineInMax;
+        public double timeWorkOfEngineInMax;
 
-        public int timeOffEngine;
+        public double timeOffEngine;
 
-        public int timeWorkOfEngineInWorkload;
+        public double timeWorkOfEngineInWorkload;
 
         public double startVolume;
 
         public double endVolume;
 
-        public Stats(int id, string date, double mileage, int timeInMovement,
-            int timeWorkOfEngine, int timeWorkOfEngineInMovement,
-            int timeWorkOfEngineInIdle, int timeWorkOfEngineInMin,
-            int timeWorkOfEngineInNorm, int timeWorkOfEngineInMax,
-            int timeOffEngine, int timeWorkOfEngineInWorkload,
+        public Stats(int id, string date, double mileage, double timeInMovement,
+            double timeWorkOfEngine, double timeWorkOfEngineInMovement,
+            double timeWorkOfEngineInIdle, double timeWorkOfEngineInMin,
+            double timeWorkOfEngineInNorm, double timeWorkOfEngineInMax,
+            double timeOffEngine, double timeWorkOfEngineInWorkload,
             double startVolume, double endVolume)
         {
             this.id = id;
@@ -71,33 +71,33 @@ namespace Analyze.Sources
 
         public double mileage;
 
-        public int timeInMovement;
+        public double timeInMovement;
 
-        public int timeWorkOfEngine;
+        public double timeWorkOfEngine;
 
-        public int timeWorkOfEngineInMovement;
+        public double timeWorkOfEngineInMovement;
 
-        public int timeWorkOfEngineInIdle;
+        public double timeWorkOfEngineInIdle;
 
-        public int timeWorkOfEngineInMin;
+        public double timeWorkOfEngineInMin;
 
-        public int timeWorkOfEngineInNorm;
+        public double timeWorkOfEngineInNorm;
 
-        public int timeWorkOfEngineInMax;
+        public double timeWorkOfEngineInMax;
 
-        public int timeOffEngine;
+        public double timeOffEngine;
 
-        public int timeWorkOfEngineInWorkload;
+        public double timeWorkOfEngineInWorkload;
 
         public double startVolume;
 
         public double endVolume;
 
-        public PersonalInfo(string date, double mileage, int timeInMovement,
-            int timeWorkOfEngine, int timeWorkOfEngineInMovement,
-            int timeWorkOfEngineInIdle, int timeWorkOfEngineInMin,
-            int timeWorkOfEngineInNorm, int timeWorkOfEngineInMax,
-            int timeOffEngine, int timeWorkOfEngineInWorkload,
+        public PersonalInfo(string date, double mileage, double timeInMovement,
+            double timeWorkOfEngine, double timeWorkOfEngineInMovement,
+            double timeWorkOfEngineInIdle, double timeWorkOfEngineInMin,
+            double timeWorkOfEngineInNorm, double timeWorkOfEngineInMax,
+            double timeOffEngine, double timeWorkOfEngineInWorkload,
             double startVolume, double endVolume)
         {
             this.date = date;
@@ -128,5 +128,29 @@ namespace Analyze.Sources
         public int id;
 
         public List<PersonalInfo> pi;
+    }
+
+    struct OutputStats
+    {
+        public OutputStats(int id, int workDays, string date, double KPD, double usfulWork, double diffVolume, double kpd, double wear)
+        {
+            this.id = id;
+            this.workDays = workDays;
+            this.date = date;
+            this.KPD = KPD;
+            this.usfulWork = diffVolume;
+            this.diffVolume = diffVolume;
+            this.kpd = kpd;
+            this.wear = wear;
+        }
+
+        public int id;
+        public int workDays;
+        public string date;
+        public double KPD;
+        public double usfulWork;
+        public double diffVolume;
+        public double kpd;
+        public double wear;
     }
 }
