@@ -1,4 +1,6 @@
-﻿namespace Analyze.Sources
+﻿using NPOI.SS.Formula.Functions;
+
+namespace Analyze.Sources
 {
 
     struct Stats
@@ -126,12 +128,13 @@
 
     struct OutputStats
     {
-        public OutputStats(int id, int workDays, double workTime, string date, double KPD, double usfulWork, double diffVolume, double kpd, double wear)
+        public OutputStats(int id, int workDays, double workTime, string date, double averageKPD, double KPD, double usfulWork, double diffVolume, double kpd, double wear)
         {
             this.id = id;
             this.workDays = workDays;
             this.workTime = workTime;
             this.date = date;
+            this.averageKPD = averageKPD;
             this.KPD = KPD;
             this.usfulWork = diffVolume;
             this.diffVolume = diffVolume;
@@ -143,6 +146,7 @@
         public int workDays;
         public double workTime;
         public string date;
+        public double averageKPD;
         public double KPD;
         public double usfulWork;
         public double diffVolume;

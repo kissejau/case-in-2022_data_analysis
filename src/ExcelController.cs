@@ -1,11 +1,11 @@
 ﻿using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
-using Analyze.Sources;
-using NPOI.SS.Formula;
+
 
 namespace Analyze.Sources
 {
+    // uploading and unloading excel information
     class ExcelController
     {
         private Analyze analyze = new Analyze();
@@ -42,10 +42,11 @@ namespace Analyze.Sources
             currentRow.CreateCell(1).SetCellValue("Рабочие дни");
             currentRow.CreateCell(2).SetCellValue("Среднее время работы");
             currentRow.CreateCell(3).SetCellValue("Дата");
-            currentRow.CreateCell(4).SetCellValue("KPD (полезная работа / время)");
-            currentRow.CreateCell(5).SetCellValue("Потраченное топливо");
-            currentRow.CreateCell(6).SetCellValue("Время в движениее + без движения - холостой ход / топливо");
-            currentRow.CreateCell(7).SetCellValue("Ушатанность машины (Предельные обороты / Нагрузка)");
+            currentRow.CreateCell(4).SetCellValue("Лучшее КПД");
+            currentRow.CreateCell(5).SetCellValue("КПД (полезная работа / время)");
+            currentRow.CreateCell(6).SetCellValue("Потраченное топливо");
+            currentRow.CreateCell(7).SetCellValue("Полезная работа / топливо");
+            currentRow.CreateCell(8).SetCellValue("Предельные обороты / Нагрузка");
 
 
             for (int i = 1; i < row; i++)
@@ -56,11 +57,15 @@ namespace Analyze.Sources
                 currentRow.CreateCell(1).SetCellValue(os[i - 1].workDays);
                 currentRow.CreateCell(2).SetCellValue(os[i - 1].workTime);
                 currentRow.CreateCell(3).SetCellValue(os[i - 1].date);
-                currentRow.CreateCell(4).SetCellValue(os[i - 1].KPD * 100 + "%");
-                currentRow.CreateCell(5).SetCellValue(os[i - 1].diffVolume);
-                currentRow.CreateCell(6).SetCellValue(os[i - 1].kpd);
-                currentRow.CreateCell(7).SetCellValue(os[i - 1].wear);
+                currentRow.CreateCell(4).SetCellValue(os[i - 1].averageKPD + "%");
+                currentRow.CreateCell(5).SetCellValue(os[i - 1].KPD * 100 + "%");
+                currentRow.CreateCell(6).SetCellValue(os[i - 1].diffVolume);
+                currentRow.CreateCell(7).SetCellValue(os[i - 1].kpd);
+                currentRow.CreateCell(8).SetCellValue(os[i - 1].wear);
+                if (i == 3)
+                    currentRow.CreateCell(10).SetCellValue("Всего работало машин в этом месяце: " + analyze.WorkCarsSearch(ps));
             }
+
 
             for (int i = 0; i < col; i++)
             {

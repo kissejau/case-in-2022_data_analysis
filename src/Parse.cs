@@ -1,10 +1,10 @@
-﻿
-using NPOI.SS.UserModel;
+﻿using NPOI.SS.UserModel;
 
 namespace Analyze.Sources
 {
     internal class Parser
     {
+        // ...
         private int ConvertTime(string time)
         {
             int seconds = 0;
@@ -17,6 +17,7 @@ namespace Analyze.Sources
 
             return seconds;
         }
+        // separation of all statistics
         public void Parse(ISheet sheet, List<Stats> stats)
         {
             for (int row = 1; row <= sheet.LastRowNum; row++)
@@ -24,11 +25,6 @@ namespace Analyze.Sources
                 var currentRow = sheet.GetRow(row);
                 if (currentRow != null)
                 {
-                    for (int j = 0; j < 14; j++)
-                    {
-                        //(currentRow.GetCell(j)).SetCellType(cell);
-                    }
-
                     try
                     {
                         var i1 = Convert.ToInt32(currentRow.GetCell(0).NumericCellValue);
@@ -76,6 +72,7 @@ namespace Analyze.Sources
             }
         }
 
+        // allocation of statistics by id
         public void RelocateStats(List<Stats> stats, List<PersonalStats> ps)
         {
             for (int i = 0; i < stats.Count; i++)

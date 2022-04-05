@@ -9,7 +9,6 @@ namespace Analyze
         {
 
             var parser = new Parser();
-            var analyze = new Sources.Analyze();
             var excel = new ExcelController();
 
             List<Stats> stats = new List<Stats>();
