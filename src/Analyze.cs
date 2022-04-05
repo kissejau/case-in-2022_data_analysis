@@ -54,24 +54,25 @@
                 workDays = WorkDaysSearch(i.pi);
                 double KPD = 0;
                 double temp = 0;
-                output = new OutputStats(i.id, 0, i.pi[0].date, 0.0, 0.0, 0.0, 0.0, 0.0);
+                double workTime = 0;
+                output = new OutputStats(i.id, 0, 0.0, i.pi[0].date, 0.0, 0.0, 0.0, 0.0, 0.0);
                 foreach (var j in i.pi)
                 {
                     if (j.timeWorkOfEngine != 0)
                     {
                         temp = Math.Round((j.timeWorkOfEngineInMovement + j.timeWorkOfEngineInIdle - j.timeWorkOfEngineInMin) / j.timeWorkOfEngine, 2);
-
+                        workTime += j.timeWorkOfEngine;
                         if (KPD < temp)
                         {
                             if (j.startVolume - j.endVolume > 0)
                             {
-                                output = new OutputStats(i.id, workDays, j.date, temp, temp * j.timeWorkOfEngine,
+                                output = new OutputStats(i.id, workDays, workTime, j.date, temp, temp * j.timeWorkOfEngine,
                                                             j.startVolume - j.endVolume, temp * j.timeWorkOfEngine / (j.startVolume - j.endVolume),
                                                             j.timeWorkOfEngineInMax / j.timeWorkOfEngineInWorkload);
                             }
                             else
                             {
-                                output = new OutputStats(i.id, workDays, j.date, temp, temp * j.timeWorkOfEngine,
+                                output = new OutputStats(i.id, workDays, workTime, j.date, temp, temp * j.timeWorkOfEngine,
                                     j.startVolume - j.endVolume, 0,
                                     j.timeWorkOfEngineInMax / j.timeWorkOfEngineInWorkload);
                             }
@@ -81,6 +82,8 @@
                     }
 
                 }
+
+                output.workTime = Math.Round(output.workTime / (30 * 3600), 2);
                 os.Add(output);
             }
             /*

@@ -33,18 +33,19 @@ namespace Analyze.Sources
 
 
 
-            int col = 7;
+            int col = 8;
             int row = os.Count + 1;
             Console.WriteLine(row);
 
             currentRow = sheet.CreateRow(0);
             currentRow.CreateCell(0).SetCellValue("id");
             currentRow.CreateCell(1).SetCellValue("Рабочие дни");
-            currentRow.CreateCell(2).SetCellValue("Дата");
-            currentRow.CreateCell(3).SetCellValue("KPD (полезная работа / время)");
-            currentRow.CreateCell(4).SetCellValue("Потраченное топливо");
-            currentRow.CreateCell(5).SetCellValue("Время в движениее + без движения - холостой ход / топливо");
-            currentRow.CreateCell(6).SetCellValue("Ушатанность машины (Предельные обороты / Нагрузка)");
+            currentRow.CreateCell(2).SetCellValue("Среднее время работы");
+            currentRow.CreateCell(3).SetCellValue("Дата");
+            currentRow.CreateCell(4).SetCellValue("KPD (полезная работа / время)");
+            currentRow.CreateCell(5).SetCellValue("Потраченное топливо");
+            currentRow.CreateCell(6).SetCellValue("Время в движениее + без движения - холостой ход / топливо");
+            currentRow.CreateCell(7).SetCellValue("Ушатанность машины (Предельные обороты / Нагрузка)");
 
 
             for (int i = 1; i < row; i++)
@@ -53,13 +54,18 @@ namespace Analyze.Sources
 
                 currentRow.CreateCell(0).SetCellValue(os[i - 1].id);
                 currentRow.CreateCell(1).SetCellValue(os[i - 1].workDays);
-                currentRow.CreateCell(2).SetCellValue(os[i - 1].date);
-                currentRow.CreateCell(3).SetCellValue(os[i - 1].KPD * 100 + "%");
-                currentRow.CreateCell(4).SetCellValue(os[i - 1].diffVolume);
-                currentRow.CreateCell(5).SetCellValue(os[i - 1].kpd);
-                currentRow.CreateCell(6).SetCellValue(os[i - 1].wear);
+                currentRow.CreateCell(2).SetCellValue(os[i - 1].workTime);
+                currentRow.CreateCell(3).SetCellValue(os[i - 1].date);
+                currentRow.CreateCell(4).SetCellValue(os[i - 1].KPD * 100 + "%");
+                currentRow.CreateCell(5).SetCellValue(os[i - 1].diffVolume);
+                currentRow.CreateCell(6).SetCellValue(os[i - 1].kpd);
+                currentRow.CreateCell(7).SetCellValue(os[i - 1].wear);
             }
 
+            for (int i = 0; i < col; i++)
+            {
+                sheet.AutoSizeColumn(i);
+            }
 
             if (!File.Exists(filePath))
             {

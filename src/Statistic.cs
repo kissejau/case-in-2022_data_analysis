@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Analyze.Sources
+﻿namespace Analyze.Sources
 {
 
     struct Stats
@@ -132,10 +126,11 @@ namespace Analyze.Sources
 
     struct OutputStats
     {
-        public OutputStats(int id, int workDays, string date, double KPD, double usfulWork, double diffVolume, double kpd, double wear)
+        public OutputStats(int id, int workDays, double workTime, string date, double KPD, double usfulWork, double diffVolume, double kpd, double wear)
         {
             this.id = id;
             this.workDays = workDays;
+            this.workTime = workTime;
             this.date = date;
             this.KPD = KPD;
             this.usfulWork = diffVolume;
@@ -146,6 +141,7 @@ namespace Analyze.Sources
 
         public int id;
         public int workDays;
+        public double workTime;
         public string date;
         public double KPD;
         public double usfulWork;

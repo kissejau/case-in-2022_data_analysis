@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using NPOI.SS.UserModel;
 
 namespace Analyze.Sources
@@ -132,7 +128,7 @@ namespace Analyze.Sources
                     if (!fl)
                     {
                         ps.Add(new PersonalStats(stats[i].id, new List<PersonalInfo>()));
-                        ps[ps.Count-1].pi.Add(
+                        ps[ps.Count - 1].pi.Add(
                             new PersonalInfo(
                                 stats[i].date,
                                 stats[i].mileage,
